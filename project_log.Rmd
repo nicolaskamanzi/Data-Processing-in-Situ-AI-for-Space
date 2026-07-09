@@ -1,0 +1,59 @@
+---
+title: "Project Log — Onboard Damage Triage"
+subtitle: "Living document, updated weekly. Not a finished write-up."
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Reference (update as it changes)
+
+**Problem.** Automated building-damage triage from satellite imagery for conflict/disaster zones, running onboard/edge to cut unnecessary downlink.
+
+**Reports.** Damaged-building counts by class/AOI + bandwidth/energy savings vs. transmit-everything baseline. No cost-of-war economics.
+
+**Architecture (current — will evolve):**
+
+![Onboard damage triage architecture: image pair feeds a ResNet damage classifier, which routes through a confidence threshold to transmit, human review, or discard, all logged for periodic offline retraining](architecture.png)
+
+No RL — evaluated, rejected (reintroduces the black-box trust problem, adds overengineering risk).
+
+**Datasets.** xBD (pretraining) → fine-tuned on self-built conflict set (UNOSAT damage labels + matched Google Earth historical patches, multiple cities). See Week entries below for where this stands.
+
+---
+
+## Week 1
+
+- Surveyed EO foundation models, onboard-AI precedent.
+- RL evaluated for onboard triage — rejected.
+- First architecture draft: CNN classifier only.
+
+## Week 2
+
+- Compared deforestation vs. conflict/disaster damage assessment as project topic — picked the latter.
+- Adopted xBD as baseline dataset.
+
+## Week 3
+
+- Cross-checked against project brief — good fit as a reconnaissance use case.
+- BIOMASS flagged as unsuitable sensor (P-band SAR, wrong task) — will justify optical/xBD imagery choice instead.
+- Dropped cost-of-war economics from scope.
+- Architecture finalised (diagram above).
+- Dataset shortlist: xBD + UNOSAT/Google Earth fine-tuning set, benchmarked against Risso et al. 2024 (Mariupol) and Mueller et al. 2021 (Aleppo — cross-city generalisation warning, up to 29% accuracy drop).
+
+## Week 4
+
+
+---
+
+<!--
+Template for new entries:
+
+## Week N
+
+- What you did
+- What you decided, and why
+- What's next
+-->
